@@ -2,15 +2,919 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Math for Developers — Concepts, Notes, Tips & Tricks</title>
+    <meta name="description"
+        content="A single-file handbook of essential math for programmers: quick formulas, tips, cheatsheets, and tiny calculators." />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #0b0c10;
+            --panel: #111218;
+            --text: #e8e8ea;
+            --muted: #a9abb3;
+            --accent: #7dd3fc;
+            --accent-2: #a78bfa;
+            --good: #34d399;
+            --bad: #fb7185;
+            --warn: #fbbf24;
+            --code: #0f172a;
+            --border: #1f2430;
+            --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+        }
+
+        /* light theme */
+        :root.light {
+            --bg: #f8fafc;
+            --panel: #ffffff;
+            --text: #0f172a;
+            --muted: #475569;
+            --accent: #0ea5e9;
+            --accent-2: #7c3aed;
+            --good: #059669;
+            --bad: #e11d48;
+            --warn: #d97706;
+            --code: #0b1220;
+            --border: #e2e8f0;
+            --shadow: 0 6px 18px rgba(2, 6, 23, .08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            color: var(--text);
+            background: radial-gradient(1200px 600px at 80% -20%, rgba(124, 58, 237, .15), transparent 60%), var(--bg);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 24px auto;
+            padding: 0 16px;
+        }
+
+        header {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            background: linear-gradient(120deg, rgba(125, 211, 252, .08), rgba(167, 139, 250, .07));
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px 16px;
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            letter-spacing: .2px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin-top: 4px;
+            font-size: .98rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        button,
+        .btn {
+            cursor: pointer;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--panel);
+            color: var(--text);
+            padding: 10px 12px;
+            line-height: 1;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+        }
+
+        button:hover,
+        .btn:hover {
+            border-color: var(--accent);
+        }
+
+        #search {
+            width: min(560px, 70vw);
+            background: var(--panel);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: var(--shadow);
+        }
+
+        kbd {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 0px 6px;
+            border-radius: 6px;
+            box-shadow: var(--shadow);
+        }
+
+        main {
+            margin-top: 20px;
+            display: grid;
+            gap: 16px;
+        }
+
+        section.card {
+            background: linear-gradient(180deg, rgba(2, 6, 23, .10), transparent 30%), var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px 16px;
+            box-shadow: var(--shadow);
+        }
+
+        section.card h2 {
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        @media (max-width: 980px) {
+
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        details {
+            border: 1px dashed var(--border);
+            border-radius: 14px;
+            padding: 10px 12px;
+            background: color-mix(in srgb, var(--panel) 92%, transparent);
+        }
+
+        details>summary {
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        code,
+        pre {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            background: var(--code);
+            color: #e5edff;
+        }
+
+        pre {
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            padding: 12px 14px;
+            overflow-x: auto;
+        }
+
+        .copy-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .copy-btn {
+            border: 1px dashed var(--border);
+            padding: 6px 8px;
+            border-radius: 8px;
+            font-size: .9rem;
+        }
+
+        small.hint {
+            color: var(--muted);
+        }
+
+        .badge {
+            font-size: .75rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--panel);
+            color: var(--muted);
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--border);
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        th {
+            background: color-mix(in srgb, var(--panel) 75%, transparent);
+        }
+
+        .mark {
+            background: color-mix(in srgb, var(--accent) 30%, transparent 70%);
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        .tip {
+            color: var(--good);
+        }
+
+        .warn {
+            color: var(--warn);
+        }
+
+        .err {
+            color: var(--bad);
+        }
+
+        footer {
+            color: var(--muted);
+            text-align: center;
+            margin: 30px 0 60px;
+            font-size: .9rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px dashed var(--border);
+            margin: 18px 0;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* mini calc styles */
+        .calc {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            border: 1px dashed var(--border);
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        .calc label {
+            font-weight: 600;
+        }
+
+        .calc input {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--panel);
+            color: var(--text);
+            padding: 8px 10px;
+        }
+
+        .output {
+            font-weight: 700;
+            color: var(--accent-2);
+        }
+    </style>
 </head>
 
 <body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Math for Developers — Concepts, Notes, Tips &amp; Tricks</h1>
+                <div class="subtitle">A pragmatic, searchable, single-file handbook of math you'll actually use in code,
+                    interviews, and systems work.</div>
+            </div>
+            <div class="controls">
+                <input id="search" type="search"
+                    placeholder="Search topics, e.g. 'mod inverse', 'variance', 'Big-O' (press / to focus)" />
+                <button id="themeToggle" title="Toggle light/dark">🌓 Theme</button>
+            </div>
+        </header>
 
-    <h1>Hi, This is Math Tutorial for Programmers</h1>
+        <main id="content">
+            <!-- Quick Start -->
+            <section class="card" data-keywords="overview roadmap what's here">
+                <h2>Quick Start</h2>
+                <div class="grid-2">
+                    <div>
+                        <ul>
+                            <li><span class="mark">Cheatsheets</span>: derivatives, integrals, trig identities, series
+                                sums.</li>
+                            <li><span class="mark">Discrete math</span>: sets, logic, combinatorics, graphs.</li>
+                            <li><span class="mark">Number theory</span>: modular arithmetic, GCD, CRT, inverses.</li>
+                            <li><span class="mark">Probability &amp; stats</span>: expectation, variance, Bayes, common
+                                dists.</li>
+                            <li><span class="mark">Linear algebra</span>: vectors, matrices, norms, decompositions.</li>
+                            <li><span class="mark">Calculus</span>: limits, series, optimization, gradients.</li>
+                            <li><span class="mark">CS math</span>: Big-O, logs, floating point, numeric stability.</li>
+                        </ul>
+                        <p class="tip">Tip: Use the search box to instantly filter sections. Copy any formula with the
+                            “Copy” button.</p>
+                    </div>
+                    <div>
+                        <details open>
+                            <summary>How to read formulas here</summary>
+                            <p>Inline math uses <code>\\( ... \\)</code>, display math uses <code>$$ ... $$</code>. For
+                                example, the binomial coefficient:</p>
+                            <div class="copy-row">
+                                <div>$$\\binom{n}{k} = \\frac{n!}{k!(n-k)!}$$</div>
+                                <button class="copy-btn" data-copy="\\binom{n}{k} = \\frac{n!}{k!(n-k)!}">Copy</button>
+                            </div>
+                            <small class="hint">Rendered by KaTeX (CDN). If offline, formulas will show as TeX.</small>
+                        </details>
+                    </div>
+                </div>
+            </section>
 
+            <!-- Discrete & Number Theory -->
+            <section class="card"
+                data-keywords="number theory modular mod inverse gcd lcm chinese remainder theorem crt power fast exponentiation primes fermat euler totient">
+                <h2>Discrete Math &amp; Number Theory</h2>
+                <div class="grid-2">
+                    <div>
+                        <h3>Modular Arithmetic</h3>
+                        <p>\\(a \\equiv b \\pmod m\\) iff \\(m\\) divides \\(a-b\\).</p>
+                        <ul>
+                            <li>Addition: \\((a+b) \\bmod m = ((a \\bmod m)+(b \\bmod m)) \\bmod m\\)</li>
+                            <li>Multiplication: \\((ab) \\bmod m = ((a \\bmod m)(b \\bmod m)) \\bmod m\\)</li>
+                            <li>Exponentiation: use fast power in \\(O(\\log e)\\).</li>
+                        </ul>
+                        <details>
+                            <summary>Mod inverse &amp; CRT</summary>
+                            <p><strong>Inverse</strong> of \\(a\\) mod \\(m\\) exists iff \\(\\gcd(a,m)=1\\). Compute by
+                                extended Euclid.</p>
+                            <div class="copy-row">
+                                <div>\\(a^{-1} \\equiv a^{\\varphi(m)-1} \\pmod m\\) if \\(\\gcd(a,m)=1\\).</div>
+                                <button class="copy-btn"
+                                    data-copy="a^{-1} \equiv a^{\varphi(m)-1} \pmod m">Copy</button>
+                            </div>
+                            <p><strong>Chinese Remainder</strong> (pairwise coprime): solve \\(x\\equiv
+                                a_i\\pmod{m_i}\\) with unique solution mod \\(M=\\prod m_i\\).</p>
+                        </details>
+                        <details>
+                            <summary>Primality &amp; GCD</summary>
+                            <ul>
+                                <li>Euclid GCD runs in \\(O(\\log \\min(a,b))\\).</li>
+                                <li>Fermat test: if prime \\(p\\), then \\(a^{p-1}\\equiv 1\\pmod p\\) for
+                                    \\(a\\not\\equiv 0\\).</li>
+                                <li>Miller–Rabin: fast probabilistic primality test.</li>
+                            </ul>
+                        </details>
+                    </div>
+                    <div>
+                        <h3>Tiny Utilities</h3>
+                        <div class="calc" id="gcdlcm" aria-label="GCD/LCM calculator">
+                            <label for="a">a</label> <input id="a" type="number" value="12" />
+                            <label for="b">b</label> <input id="b" type="number" value="18" />
+                            <div>gcd(a,b): <span class="output" id="gout">?</span></div>
+                            <div>lcm(a,b): <span class="output" id="lout">?</span></div>
+                        </div>
+                        <div class="calc" id="nck" aria-label="n choose k calculator">
+                            <label for="n">n</label> <input id="n" type="number" value="10" min="0" />
+                            <label for="k">k</label> <input id="k" type="number" value="3" min="0" />
+                            <div>\\(\\binom{n}{k}\\): <span class="output" id="nckOut">?</span></div>
+                            <div class="small hint">Uses exact integers for n ≤ 70.</div>
+                        </div>
+                        <div class="calc" id="base" aria-label="base converter">
+                            <label for="val">value</label> <input id="val" value="101101" />
+                            <label for="from">from base</label> <input id="from" type="number" value="2" min="2"
+                                max="36" />
+                            <label for="to">to base</label> <input id="to" type="number" value="16" min="2" max="36" />
+                            <div>result: <span class="output" id="baseOut">?</span></div>
+                            <div class="small hint">Supports bases 2–36.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Probability & Statistics -->
+            <section class="card"
+                data-keywords="probability statistics expectation variance bayes bernoulli binomial geometric poisson normal gaussian clt">
+                <h2>Probability &amp; Statistics</h2>
+                <div class="grid-2">
+                    <div>
+                        <h3>Essentials</h3>
+                        <ul>
+                            <li>Linearity of expectation: \\(\\mathbb E\\big[\\sum_i X_i\\big]=\\sum_i\\mathbb E[X_i]\\)
+                                (no independence needed).</li>
+                            <li>Variance: \\(\\operatorname{Var}(X)=\\mathbb E[X^2]-\\mathbb E[X]^2\\). If independent:
+                                \\(\\operatorname{Var}(X+Y)=\\operatorname{Var}(X)+\\operatorname{Var}(Y)\\).</li>
+                            <li>Bayes: \\(P(A\\mid B)=\\dfrac{P(B\\mid A)P(A)}{P(B)}\\).</li>
+                        </ul>
+                        <details>
+                            <summary>Common Distributions (cheats)</summary>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Dist</th>
+                                            <th>PMF/PDF</th>
+                                            <th>Mean</th>
+                                            <th>Var</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Bernoulli(\\(p\\))</td>
+                                            <td>\\(P(X=1)=p\\)</td>
+                                            <td>\\(p\\)</td>
+                                            <td>\\(p(1-p)\\)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Binomial(\\(n,p\\))</td>
+                                            <td>\\(\\binom{n}{k}p^k(1-p)^{n-k}\\)</td>
+                                            <td>\\(np\\)</td>
+                                            <td>\\(np(1-p)\\)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Geometric(\\(p\\))</td>
+                                            <td>\\(P(X=k)=(1-p)^{k-1}p\\)</td>
+                                            <td>\\(1/p\\)</td>
+                                            <td>\\((1-p)/p^2\\)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Poisson(\\(\\lambda\\))</td>
+                                            <td>\\(e^{-\\lambda}\\lambda^k/k!\\)</td>
+                                            <td>\\(\\lambda\\)</td>
+                                            <td>\\(\\lambda\\)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Normal(\\(\\mu,\\sigma^2\\))</td>
+                                            <td>\\(\\mathcal N(\\mu,\\sigma^2)\\)</td>
+                                            <td>\\(\\mu\\)</td>
+                                            <td>\\(\\sigma^2\\)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>Estimation</summary>
+                            <ul>
+                                <li>Sample mean \\(\\bar x=\\frac{1}{n}\\sum x_i\\), unbiased.</li>
+                                <li>Sample variance (unbiased): \\(s^2=\\dfrac{1}{n-1}\\sum (x_i-\\bar x)^2\\).</li>
+                                <li>CLT: sums of iid variables ~ Normal for large \\(n\\).</li>
+                            </ul>
+                        </details>
+                    </div>
+                    <div>
+                        <h3>Back-of-the-envelope</h3>
+                        <ul>
+                            <li>\\(\\ln(1+x)\\approx x - x^2/2\\) for small \\(|x|\\).</li>
+                            <li>\\((1+x)^r\\approx 1+rx\\) for small \\(|x|\\).</li>
+                            <li>\\(e^x\\approx 1+x\\) for small \\(|x|\\).</li>
+                            <li>Rule of 70 (doubling time): \\(T\\approx 70/g\\) for \\(g\\)% growth.</li>
+                        </ul>
+                        <details>
+                            <summary>Confidence intervals (normal, known \\(\\sigma\\))</summary>
+                            <p>\\(\\bar x \\pm z_{\\alpha/2}\\,\\sigma/\\sqrt n\\). For 95%: \\(z \\approx 1.96\\).</p>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Linear Algebra -->
+            <section class="card"
+                data-keywords="linear algebra matrix vector norm dot product cross product eigen singular value decomposition orthogonal projection least squares">
+                <h2>Linear Algebra</h2>
+                <div class="grid-2">
+                    <div>
+                        <h3>Vectors &amp; Matrices</h3>
+                        <ul>
+                            <li>Dot: \\(x\\cdot y = \\sum_i x_i y_i\\). Norm: \\(\\lVert x\\rVert_2 = \\sqrt{x\\cdot
+                                x}\\).</li>
+                            <li>Matrix mult: \\((AB)_{ij} = \\sum_k A_{ik}B_{kj}\\).</li>
+                            <li>Determinant: area/volume scale; \\(\\det(AB)=\\det A\\,\\det B\\).</li>
+                        </ul>
+                        <details>
+                            <summary>Projections &amp; least squares</summary>
+                            <p>Project \\(b\\) onto span of columns of \\(A\\): solve normal eq. \\(A^TAx=A^Tb\\).</p>
+                            <p>Or use QR: \\(A=QR\\Rightarrow x=R^{-1}Q^Tb\\) (more stable).</p>
+                        </details>
+                    </div>
+                    <div>
+                        <h3>Decompositions</h3>
+                        <ul>
+                            <li>Eigendecomp: \\(Ax=\\lambda x\\). Diagonalize if enough eigenvectors.</li>
+                            <li>SVD: \\(A=U\\Sigma V^T\\), always exists. Great for PCA, low-rank.</li>
+                            <li>PSD: \\(x^TAx\\ge 0\\Rightarrow\\) eigenvalues \\(\\ge 0\\).</li>
+                        </ul>
+                        <details>
+                            <summary>Common norms</summary>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Norm</th>
+                                            <th>Def</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>\\(\\lVert x\\rVert_1\\)</td>
+                                            <td>\\(\\sum_i |x_i|\\)</td>
+                                            <td>Sparse-favoring</td>
+                                        </tr>
+                                        <tr>
+                                            <td>\\(\\lVert x\\rVert_2\\)</td>
+                                            <td>\\(\\sqrt{x\\cdot x}\\)</td>
+                                            <td>Euclidean</td>
+                                        </tr>
+                                        <tr>
+                                            <td>\\(\\lVert x\\rVert_\\infty\\)</td>
+                                            <td>\\(\\max_i |x_i|\\)</td>
+                                            <td>Max error</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calculus -->
+            <section class="card"
+                data-keywords="calculus derivative integral optimization gradient taylor series limit">
+                <h2>Calculus (for optimization &amp; analysis)</h2>
+                <div class="grid-2">
+                    <div>
+                        <h3>Derivatives</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>f(x)</th>
+                                        <th>f′(x)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>\\(c\\)</td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>\\(x^n\\)</td>
+                                        <td>\\(nx^{n-1}\\)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>\\(e^x\\)</td>
+                                        <td>\\(e^x\\)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>\\(\\ln x\\)</td>
+                                        <td>\\(1/x\\)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>\\(\\sin x\\)</td>
+                                        <td>\\(\\cos x\\)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>\\(\\cos x\\)</td>
+                                        <td>\\(-\\sin x\\)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>Product rule: \\((fg)'=f'g+fg'\\). Chain: \\((f\\circ g)'=(f'\\circ g)g'\\).</p>
+                    </div>
+                    <div>
+                        <h3>Integrals &amp; Series</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Integral</th>
+                                        <th>Result</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>\\(\\int x^n\\,dx\\)</td>
+                                        <td>\\(x^{n+1}/(n+1)+C\\) (\\(n\\neq -1\\))</td>
+                                    </tr>
+                                    <tr>
+                                        <td>\\(\\int e^x\\,dx\\)</td>
+                                        <td>\\(e^x+C\\)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>\\(\\int 1/x\\,dx\\)</td>
+                                        <td>\\(\\ln|x|+C\\)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>Taylor: \\(f(x)\\approx f(a)+f'(a)(x-a)+\\frac{f''(a)}{2}(x-a)^2+\\cdots\\).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trig & Series -->
+            <section class="card"
+                data-keywords="trigonometry trig identities pythagoras angle sum double angle euler series">
+                <h2>Trig &amp; Series Identities</h2>
+                <div class="grid-2">
+                    <div>
+                        <h3>Trig identities</h3>
+                        <ul>
+                            <li>\\(\\sin^2 x + \\cos^2 x = 1\\)</li>
+                            <li>\\(\\sin(a\\pm b)=\\sin a\\cos b \\pm \\cos a\\sin b\\)</li>
+                            <li>\\(\\cos(a\\pm b)=\\cos a\\cos b \\mp \\sin a\\sin b\\)</li>
+                            <li>\\(\\tan(a\\pm b)=\\dfrac{\\tan a \\pm \\tan b}{1 \\mp \\tan a \\tan b}\\)</li>
+                            <li>\\(e^{ix}=\\cos x + i\\sin x\\)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Useful sums</h3>
+                        <ul>
+                            <li>\\(\\sum_{i=1}^n i = n(n+1)/2\\)</li>
+                            <li>\\(\\sum_{i=1}^n i^2 = n(n+1)(2n+1)/6\\)</li>
+                            <li>Geom: \\(1+r+\\cdots+r^{n-1}=(1-r^n)/(1-r)\\)</li>
+                            <li>Harmonic: \\(H_n\\approx \\ln n + \\gamma\\)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CS Math -->
+            <section class="card"
+                data-keywords="big o complexity logs logarithms floating point stability numeric errors bit tricks">
+                <h2>CS Math — What bites in code</h2>
+                <div class="grid-2">
+                    <div>
+                        <h3>Asymptotics</h3>
+                        <ul>
+                            <li>\\(f=\\Theta(g)\\) iff \\(f=O(g)\\) and \\(f=\\Omega(g)\\).</li>
+                            <li>Common: \\(\\log n \\ll n \\ll n\\log n \\ll n^2 \\ll 2^n \\ll n!\\).</li>
+                            <li>Master (simple): \\(T(n)=aT(n/b)+n^d\\).</li>
+                        </ul>
+                        <details>
+                            <summary>Log laws</summary>
+                            <p>\\(\\log_b x = \\dfrac{\\ln x}{\\ln b}\\), \\(\\log xy=\\log x+\\log y\\), \\(\\log
+                                x^k=k\\log x\\).</p>
+                        </details>
+                    </div>
+                    <div>
+                        <h3>Floating-point gotchas</h3>
+                        <ul>
+                            <li><span class="warn">Never</span> compare equality of floats; compare \\(|a-b|
+                                <\\varepsilon\\).< /li>
+                            <li>Use Kahan summation for large lists: reduces error.</li>
+                            <li>Be careful with catastrophic cancellation: prefer stable algebra.</li>
+                        </ul>
+                        <details>
+                            <summary>Handy approximations</summary>
+                            <ul>
+                                <li>\\(\\ln(1+x) \\approx x\\) for small \\(x\\)</li>
+                                <li>\\((1-\\epsilon)^n \\approx e^{-\\epsilon n}\\)</li>
+                                <li>Stirling: \\(n! \\approx \\sqrt{2\\pi n}\\,(n/e)^n\\)</li>
+                            </ul>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Algorithms helpers -->
+            <section class="card" data-keywords="algorithms interview dp greedy graphs shortest path mst union find">
+                <h2>Algorithms helpers</h2>
+                <div class="grid-2">
+                    <div>
+                        <h3>Graph snippets</h3>
+                        <div class="copy-row">
+                            <pre><code>// Union-Find (Disjoint Set)
+class DSU {
+  constructor(n){ this.p=Array.from({length:n},(_,i)=>i); this.r=Array(n).fill(0); }
+  find(x){ return this.p[x]===x?x:(this.p[x]=this.find(this.p[x])); }
+  union(a,b){
+    a=this.find(a); b=this.find(b);
+    if(a===b) return false;
+    if(this.r[a]<this.r[b]) [a,b]=[b,a];
+    this.p[b]=a; if(this.r[a]===this.r[b]) this.r[a]++;
+    return true;
+  }
+}</code></pre>
+                            <button class="copy-btn" data-copy="class DSU {
+  constructor(n){ this.p=Array.from({length:n},(_,i)=>i); this.r=Array(n).fill(0); }
+  find(x){ return this.p[x]===x?x:(this.p[x]=this.find(this.p[x])); }
+  union(a,b){
+    a=this.find(a); b=this.find(b);
+    if(a===b) return false;
+    if(this.r[a]<this.r[b]) [a,b]=[b,a];
+    this.p[b]=a; if(this.r[a]===this.r[b]) this.r[a]++;
+    return true;
+  }
+}">Copy</button>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>DP sanity checks</h3>
+                        <ul>
+                            <li>State = “position + budget/flag”.</li>
+                            <li>Transition: minimize or maximize over choices.</li>
+                            <li>Base cases &amp; ordering (topo) are 90% of bugs.</li>
+                            <li>Space optimize from \\(O(nm)\\) to \\(O(\\min(n,m))\\) when transition uses only
+                                previous layer.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Handy tables -->
+            <section class="card" data-keywords="cheatsheet reference table">
+                <h2>Handy reference tables</h2>
+                <div class="grid-3">
+                    <div>
+                        <h3>Common derivatives</h3>
+                        <pre><code>d/dx x^n = n x^(n-1)
+d/dx sin x = cos x
+d/dx cos x = -sin x
+d/dx e^x = e^x
+d/dx ln x = 1/x</code></pre>
+                    </div>
+                    <div>
+                        <h3>Trig</h3>
+                        <pre><code>sin^2 x + cos^2 x = 1
+1 + tan^2 x = sec^2 x
+sin(2x) = 2 sin x cos x
+cos(2x) = cos^2 x - sin^2 x</code></pre>
+                    </div>
+                    <div>
+                        <h3>Series &amp; sums</h3>
+                        <pre><code>1 + r + ... + r^(n-1) = (1 - r^n)/(1 - r)
+sum i = n(n+1)/2
+sum i^2 = n(n+1)(2n+1)/6
+H_n ≈ ln n + γ</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practical tips -->
+            <section class="card" data-keywords="tips tricks pitfalls rules of thumb">
+                <h2>Practical tips &amp; pitfalls</h2>
+                <ul>
+                    <li>Prefer integers for exactness; only switch to floats when necessary.</li>
+                    <li>Modulo with negatives: in many languages, <code>(-1) % m</code> may be negative — normalize with
+                        <code>(x % m + m) % m</code>.</li>
+                    <li>Binary search invariants: keep the loop variant written above the code; test edges extensively.
+                    </li>
+                    <li>Use <span class="mark">unit tests</span> on known identities (e.g., derivative vs numeric
+                        gradient).</li>
+                </ul>
+            </section>
+
+            <footer>
+                Built as a single HTML file. Add your own snippets &amp; sections freely — it’s just text.
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        (function initTheme() {
+            const saved = localStorage.getItem('mathdev-theme');
+            if (saved === 'light') document.documentElement.classList.add('light');
+            document.getElementById('themeToggle').addEventListener('click', () => {
+                document.documentElement.classList.toggle('light');
+                localStorage.setItem('mathdev-theme', document.documentElement.classList.contains('light') ? 'light' : 'dark');
+            });
+        })();
+
+        // Search filter
+        (() => {
+            const input = document.getElementById('search');
+            const sections = [...document.querySelectorAll('section.card')];
+            function applyFilter(q) {
+                const terms = q.toLowerCase().split(/\\s+/).filter(Boolean);
+                for (const sec of sections) {
+                    const bag = (sec.textContent + ' ' + (sec.dataset.keywords || '')).toLowerCase();
+                    const ok = terms.every(t => bag.includes(t));
+                    sec.classList.toggle('hidden', !ok && terms.length > 0);
+                }
+            }
+            input.addEventListener('input', e => applyFilter(e.target.value));
+            window.addEventListener('keydown', (e) => { if (e.key === '/' && document.activeElement !== input) { e.preventDefault(); input.focus(); } });
+        })();
+
+        // Copy buttons
+        (() => {
+            document.body.addEventListener('click', async (e) => {
+                const btn = e.target.closest('.copy-btn');
+                if (!btn) return;
+                const text = btn.getAttribute('data-copy');
+                try {
+                    await navigator.clipboard.writeText(text);
+                    const prev = btn.textContent;
+                    btn.textContent = 'Copied ✓';
+                    setTimeout(() => btn.textContent = prev, 1200);
+                } catch (err) {
+                    alert('Copy failed: ' + err);
+                }
+            });
+        })();
+
+        // Mini calcs
+        function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { [a, b] = [b, a % b]; } return a; }
+        function lcm(a, b) { return Math.abs(a * b) / (gcd(a, b) || 1); }
+
+        (function gcdLCM() {
+            const A = document.getElementById('a'), B = document.getElementById('b'), G = document.getElementById('gout'), L = document.getElementById('lout');
+            function update() { const a = parseInt(A.value || 0, 10), b = parseInt(B.value || 0, 10); G.textContent = gcd(a, b); L.textContent = lcm(a, b); }
+            A.addEventListener('input', update); B.addEventListener('input', update); update();
+        })();
+
+        (function nChooseK() {
+            const N = document.getElementById('n'), K = document.getElementById('k'), OUT = document.getElementById('nckOut');
+            function nCk(n, k) {
+                if (k < 0 || k > n) return 0n;
+                if (k === 0 || k === n) return 1n;
+                if (k > n - k) k = n - k;
+                let res = 1n;
+                for (let i = 1; i <= k; i++) {
+                    res = (res * BigInt(n - k + i)) / BigInt(i);
+                }
+                return res;
+            }
+            function update() {
+                const n = parseInt(N.value || 0, 10), k = parseInt(K.value || 0, 10);
+                if (n <= 70 && k <= 70) {
+                    OUT.textContent = nCk(n, k).toString();
+                } else {
+                    OUT.textContent = 'Use approximation: ~ (n/e)^n / (k/e)^k / ((n-k)/e)^(n-k)';
+                }
+            }
+            N.addEventListener('input', update); K.addEventListener('input', update); update();
+        })();
+
+        (function baseConv() {
+            const V = document.getElementById('val'), F = document.getElementById('from'), T = document.getElementById('to'), OUT = document.getElementById('baseOut');
+            function update() {
+                try {
+                    const num = parseInt(V.value.trim(), parseInt(F.value, 10));
+                    if (isNaN(num)) { OUT.textContent = 'invalid'; return; }
+                    OUT.textContent = num.toString(parseInt(T.value, 10)).toUpperCase();
+                } catch (e) { OUT.textContent = 'invalid'; }
+            }
+            V.addEventListener('input', update); F.addEventListener('input', update); T.addEventListener('input', update); update();
+        })();
+
+        document.addEventListener("DOMContentLoaded", function () {
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "\\(", right: "\\)", display: false }
+                    ]
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
