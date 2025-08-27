@@ -1,45 +1,31 @@
-<!-- /index.html (root) -->
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>My Notes</title>
-  <link rel="stylesheet" href="assets/css/base.css" />
-  <link rel="stylesheet" href="assets/css/layout.css" />
-  <link rel="stylesheet" href="assets/css/theme.css" />
-  <link rel="stylesheet" href="assets/css/components.css" />
-  <link rel="stylesheet" href="assets/css/typography.css" />
-  <meta name="description" content="Curated notes for my career. Vanilla HTML/CSS/JS." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notes</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-  <div data-include="components/header.html"></div>
+  <header class="site-header">
+    <h1>Notes</h1>
+    <p class="tagline">Quick links to your topics</p>
+  </header>
 
-  <main class="container">
-    <h1>Welcome</h1>
-    <p class="note-meta">This is a minimal, build-free notes system you can host on GitHub Pages.</p>
-
-    <section>
-      <h2>Latest Notes</h2>
-      <div id="latest-notes" class="grid cards"></div>
-    </section>
-
-    <section class="card">
-      <h3>Quick Links</h3>
-      <p>
-        <a class="btn" href="notes/index.html">All Notes</a>
-        <a class="btn" href="tags/index.html">Tags</a>
-        <a class="btn" href="toc.html">Table of Contents</a>
-        <a class="btn" href="about.html">About</a>
-      </p>
-    </section>
+  <main class="index-main">
+    <ul class="note-list">
+      <li><a class="note-link" href="subject-notes/operating-systems.html">Operating Systems</a></li>
+      <li><a class="note-link" href="subject-notes/computer-networks.html">Computer Networks</a></li>
+    </ul>
   </main>
 
-  <div data-include="components/footer.html"></div>
-
-  <script src="assets/js/utils/dom.js"></script>
-  <script src="assets/js/components/include.js"></script>
-  <script src="assets/js/components/theme-toggle.js"></script>
-  <script src="assets/js/pages/home.js"></script>
+  <footer class="site-footer">
+    <p>
+      Built with plain HTML, CSS &amp; JS. Add more topics by copying a notes page.
+    </p>
+  </footer>
 </body>
+
 </html>

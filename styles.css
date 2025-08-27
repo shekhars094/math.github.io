@@ -1,0 +1,135 @@
+/* Minimal, clean styles shared across all pages */
+:root{
+  --bg: #0b1320;
+  --panel: #11182a;
+  --text: #e6e9ef;
+  --muted: #9aa3b2;
+  --accent: #6ea8fe;
+  --border: #23304d;
+}
+
+*{ box-sizing: border-box; }
+html, body { height: 100%; }
+body{
+  margin: 0;
+  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--text);
+  background: radial-gradient(1200px 600px at 20% -10%, #15213a, transparent), var(--bg);
+}
+
+a{ color: var(--accent); text-decoration: none; }
+a:hover{ text-decoration: underline; }
+
+.site-header, .site-footer{
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, #0f1729, #0c1423);
+}
+.site-footer{ border-top: 1px solid var(--border); border-bottom: none; }
+
+.site-header h1{
+  margin: 0 0 0.25rem 0;
+  font-size: 1.5rem;
+}
+.tagline{ margin: 0; color: var(--muted); }
+
+/* Index page */
+.index-main{
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.note-list{
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.note-link{
+  display: block;
+  padding: 0.9rem 1rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-weight: 600;
+}
+.note-link:hover{
+  background: #0f1a31;
+}
+
+/* Notes layout (with sidebar TOC) */
+.notes-shell{
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  max-width: 1200px;
+  margin: 1rem auto;
+  padding: 0 1rem 2rem;
+}
+@media (max-width: 880px){
+  .notes-shell{ grid-template-columns: 1fr; }
+}
+
+.sidebar{
+  position: sticky;
+  top: 0.75rem;
+  align-self: start;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.75rem;
+  max-height: calc(100dvh - 1.5rem);
+  overflow: auto;
+}
+
+.sidebar .home{
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.toc h2{
+  font-size: 0.95rem;
+  margin: 0.25rem 0 0.5rem;
+  color: var(--muted);
+}
+.toc ul{
+  list-style: none;
+  padding-left: 0.5rem;
+  margin: 0;
+}
+.toc li{
+  margin: 0.25rem 0;
+}
+.toc a{
+  display: inline-block;
+  padding: 0.15rem 0.25rem;
+  border-radius: 6px;
+}
+.toc a:hover{ background: #0f1a31; text-decoration: none; }
+
+.content{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.content h1{
+  margin-top: 0;
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+.content h2{ margin-top: 2rem; }
+.content h3{ margin-top: 1rem; }
+
+/* Make anchor targets sit below the sticky header when linked */
+:target{ scroll-margin-top: 0.75rem; }
+code, pre{
+  background: #0c1527;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+code{ padding: 0.1rem 0.3rem; }
+pre{ padding: 0.75rem; overflow: auto; }

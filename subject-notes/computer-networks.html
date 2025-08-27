@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Computer Networks — Notes</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Computer Networks</h1>
+    <p class="tagline">Layers • Protocols • Routing • Transport • Application</p>
+  </header>
+
+  <div class="notes-shell">
+    <aside class="sidebar">
+      <a class="home" href="index.html">← All Notes</a>
+      <nav class="toc">
+        <h2>Table of Contents</h2>
+        <div id="toc-list"><!-- built by toc.js --></div>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <h1>Computer Networks</h1>
+
+      <h2>Layering</h2>
+      <h3>OSI vs TCP/IP</h3>
+      <ul>
+        <li>OSI (7 layers) vs TCP/IP (5 layers)</li>
+      </ul>
+
+      <h2>Link Layer</h2>
+      <h3>Switching</h3>
+      <p>Bridges/switches forward frames based on MAC tables; STP avoids loops.</p>
+
+      <h2>Network Layer</h2>
+      <h3>IP Addressing</h3>
+      <p>IPv4 CIDR, subnetting, NAT; IPv6 128-bit addressing.</p>
+      <h3>Routing</h3>
+      <p>Intra-domain: OSPF; Inter-domain: BGP path-vector.</p>
+
+      <h2>Transport Layer</h2>
+      <h3>TCP vs UDP</h3>
+      <ul>
+        <li>TCP: reliable, connection-oriented, flow + congestion control.</li>
+        <li>UDP: best-effort, low overhead.</li>
+      </ul>
+
+      <h2>Application Layer</h2>
+      <h3>HTTP</h3>
+      <p>HTTP/1.1 keep-alive, HTTP/2 multiplexing, HTTP/3 over QUIC.</p>
+      <h3>DNS</h3>
+      <p>Hierarchical, caching resolvers, RR types (A/AAAA/CNAME/TXT).</p>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>Tip: Add more headings (<code>h2</code>, <code>h3</code>) and the TOC updates automatically.</p>
+  </footer>
+
+  <script src="toc.js"></script>
+</body>
+</html>
