@@ -1,0 +1,16 @@
+/* assets/css/layout.css */
+.site-header{
+  position:sticky; top:0; z-index:10; background:rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.nav{display:flex; align-items:center; gap:14px; padding:10px 0}
+.nav a{padding:6px 10px; border-radius:10px}
+.nav a.active, .nav a:hover{background:var(--bg-elev)}
+.site-footer{border-top:1px solid var(--border); margin-top:40px; padding:24px 0; color:var(--muted)}
+.grid{display:grid; gap:16px}
+.grid.cards{grid-template-columns: repeat(auto-fill,minmax(260px,1fr))}
+.flex{display:flex; align-items:center; gap:8px}
+.right{margin-left:auto}
+.breadcrumbs{font-size: 13px; color:var(--muted)}
+.tag-cloud a{display:inline-block; margin:6px; padding:4px 10px; border:1px solid var(--border); border-radius:999px}

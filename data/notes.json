@@ -1,0 +1,14 @@
+[
+  {
+    "id": "hello-world",
+    "title": "Hello World: How I\u2019ll Organize My Notes",
+    "url": "notes/2025/hello-world.html",
+    "date": "2025-08-28T09:00:00.000Z",
+    "tags": [
+      "setup",
+      "meta"
+    ],
+    "category": "Project Setup",
+    "summary": "A quick intro to the structure: multi\u2011page site, tags, search, and table of contents \u2014 all in vanilla JS."
+  }
+]

@@ -1,45 +1,26 @@
-<!-- /index.html (root) -->
+<!-- /toc.html -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>My Notes</title>
+  <title>Table of Contents · My Notes</title>
   <link rel="stylesheet" href="assets/css/base.css" />
   <link rel="stylesheet" href="assets/css/layout.css" />
   <link rel="stylesheet" href="assets/css/theme.css" />
   <link rel="stylesheet" href="assets/css/components.css" />
   <link rel="stylesheet" href="assets/css/typography.css" />
-  <meta name="description" content="Curated notes for my career. Vanilla HTML/CSS/JS." />
 </head>
 <body>
   <div data-include="components/header.html"></div>
-
   <main class="container">
-    <h1>Welcome</h1>
-    <p class="note-meta">This is a minimal, build-free notes system you can host on GitHub Pages.</p>
-
-    <section>
-      <h2>Latest Notes</h2>
-      <div id="latest-notes" class="grid cards"></div>
-    </section>
-
-    <section class="card">
-      <h3>Quick Links</h3>
-      <p>
-        <a class="btn" href="notes/index.html">All Notes</a>
-        <a class="btn" href="tags/index.html">Tags</a>
-        <a class="btn" href="toc.html">Table of Contents</a>
-        <a class="btn" href="about.html">About</a>
-      </p>
-    </section>
+    <h1>Table of Contents</h1>
+    <div id="toc" class="grid"></div>
   </main>
-
   <div data-include="components/footer.html"></div>
-
   <script src="assets/js/utils/dom.js"></script>
   <script src="assets/js/components/include.js"></script>
   <script src="assets/js/components/theme-toggle.js"></script>
-  <script src="assets/js/pages/home.js"></script>
+  <script src="assets/js/pages/toc.js"></script>
 </body>
 </html>

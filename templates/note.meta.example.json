@@ -1,0 +1,12 @@
+{
+  "id": "my-new-note",
+  "title": "My New Note",
+  "url": "notes/2025/my-new-note.html",
+  "date": "2025-08-28T10:00:00.000Z",
+  "tags": [
+    "example",
+    "howto"
+  ],
+  "category": "Guides",
+  "summary": "A short one-line summary for search and listing pages."
+}
