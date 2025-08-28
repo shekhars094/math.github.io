@@ -1,81 +1,113 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Operating Systems — Notes</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <header class="site-header">
-    <h1>Operating Systems</h1>
-    <p class="tagline">Processes • Threads • Scheduling • Memory • File systems</p>
-  </header>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Operating Systems — Notes</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
 
-  <div class="notes-shell">
-    <aside class="sidebar">
-      <a class="home" href="index.html">← All Notes</a>
-      <nav class="toc">
-        <h2>Table of Contents</h2>
-        <div id="toc-list"><!-- built by toc.js --></div>
-      </nav>
-    </aside>
+    <body>
+        <header class="site-header">
+            <h1>Operating Systems</h1>
+            <p class="tagline">
+                Processes • Threads • Scheduling • Memory • File systems
+            </p>
+        </header>
 
-    <main class="content">
-      <h1>Operating Systems</h1>
+        <div class="notes-shell">
+            <aside class="sidebar">
+                <a class="home" href="index.html">← All Notes</a>
+                <nav class="toc">
+                    <h2>Table of Contents</h2>
+                    <div id="toc-list"><!-- built by toc.js --></div>
+                </nav>
+            </aside>
 
-      <h2>Process Model</h2>
-      <p>A <strong>process</strong> is a running program instance with its own address space and resources.</p>
-      <h3>States</h3>
-      <ul>
-        <li><code>new → ready → running → blocked → terminated</code></li>
-      </ul>
-      <h3>Context Switch</h3>
-      <p>Switching CPU from one process to another; saves/restores registers, PC, stack pointer, etc.</p>
+            <main class="content">
+                <h1>Operating Systems</h1>
 
-      <h2>Threads</h2>
-      <p>Lightweight units of execution within a process sharing address space.</p>
-      <h3>Benefits</h3>
-      <ul>
-        <li>Concurrency</li>
-        <li>Resource sharing</li>
-        <li>Lower context-switch cost vs processes</li>
-      </ul>
+                <h2>Process Model</h2>
+                <p>
+                    A <strong>process</strong> is a running program instance
+                    with its own address space and resources.
+                </p>
+                <h3>States</h3>
+                <ul>
+                    <li>
+                        <code
+                            >new → ready → running → blocked → terminated</code
+                        >
+                    </li>
+                </ul>
+                <h3>Context Switch</h3>
+                <p>
+                    Switching CPU from one process to another; saves/restores
+                    registers, PC, stack pointer, etc.
+                </p>
 
-      <h2>CPU Scheduling</h2>
-      <h3>Common Algorithms</h3>
-      <ul>
-        <li>FCFS, SJF, SRTF, RR (time quantum), Priority</li>
-      </ul>
+                <h2>Threads</h2>
+                <p>
+                    Lightweight units of execution within a process sharing
+                    address space.
+                </p>
+                <h3>Benefits</h3>
+                <ul>
+                    <li>Concurrency</li>
+                    <li>Resource sharing</li>
+                    <li>Lower context-switch cost vs processes</li>
+                </ul>
 
-      <h2>Memory Management</h2>
-      <h3>Paging</h3>
-      <p>Virtual memory divided into pages; physical memory into frames; uses page tables and TLB.</p>
-      <h3>Segmentation</h3>
-      <p>Memory as logical segments (code, data, stack) with base/limit.</p>
+                <h2>CPU Scheduling</h2>
+                <h3>Common Algorithms</h3>
+                <ul>
+                    <li>FCFS, SJF, SRTF, RR (time quantum), Priority</li>
+                </ul>
 
-      <h2>File Systems</h2>
-      <h3>Inodes &amp; Directories</h3>
-      <p>Metadata (inode) plus directory entries mapping names to inodes.</p>
+                <h2>Memory Management</h2>
+                <h3>Paging</h3>
+                <p>
+                    Virtual memory divided into pages; physical memory into
+                    frames; uses page tables and TLB.
+                </p>
+                <h3>Segmentation</h3>
+                <p>
+                    Memory as logical segments (code, data, stack) with
+                    base/limit.
+                </p>
 
-      <h2>Synchronization</h2>
-      <h3>Primitives</h3>
-      <ul>
-        <li>Mutex, Semaphore, Monitor, Condition Variable</li>
-      </ul>
+                <h2>File Systems</h2>
+                <h3>Inodes &amp; Directories</h3>
+                <p>
+                    Metadata (inode) plus directory entries mapping names to
+                    inodes.
+                </p>
 
-      <h2>Deadlocks</h2>
-      <h3>Conditions</h3>
-      <ul>
-        <li>Mutual exclusion, Hold &amp; wait, No preemption, Circular wait</li>
-      </ul>
-    </main>
-  </div>
+                <h2>Synchronization</h2>
+                <h3>Primitives</h3>
+                <ul>
+                    <li>Mutex, Semaphore, Monitor, Condition Variable</li>
+                </ul>
 
-  <footer class="site-footer">
-    <p>Tip: Add more headings (<code>h2</code>, <code>h3</code>) and the TOC updates automatically.</p>
-  </footer>
+                <h2>Deadlocks</h2>
+                <h3>Conditions</h3>
+                <ul>
+                    <li>
+                        Mutual exclusion, Hold &amp; wait, No preemption,
+                        Circular wait
+                    </li>
+                </ul>
+            </main>
+        </div>
 
-  <script src="../assets/js/toc.js"></script>
-</body>
+        <footer class="site-footer">
+            <p>
+                Tip: Add more headings (<code>h2</code>, <code>h3</code>) and
+                the TOC updates automatically.
+            </p>
+        </footer>
+
+        <script src="../assets/js/init.js"></script>
+        <script src="../assets/js/toc.js"></script>
+    </body>
 </html>
