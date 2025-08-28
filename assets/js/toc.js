@@ -11,6 +11,7 @@
     function buildTOC() {
         var content = document.querySelector("main.content");
         var mount = document.getElementById("toc-list");
+        console.log(content);
         if (!content || !mount) return;
 
         var headings = content.querySelectorAll("h2, h3");
